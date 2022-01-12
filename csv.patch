@@ -1,0 +1,39 @@
+--- src/byte_record.rs	2022-01-20 23:44:30.667235700 +0100
++++ src/byte_record.rs	2022-01-21 00:18:18.913874000 +0100
+@@ -376,6 +376,36 @@
+         *self = trimmed;
+     }
+ 
++    /// Trim the fields of this record so that leading and trailing whitespace
++    /// is removed.
++    ///
++    /// This method uses the ASCII definition of whitespace. That is, only
++    /// bytes in the class `[\t\n\v\f\r ]` are trimmed.
++    ///
++    /// # Example
++    ///
++    /// ```
++    /// use csv::ByteRecord;
++    ///
++    /// let mut record = ByteRecord::from(vec![
++    ///     "  ", "\tfoo", "bar  ", "b a z",
++    /// ]);
++    /// record.trim();
++    /// assert_eq!(record, vec!["", "foo", "bar", "b a z"]);
++    /// ```
++    pub fn trim_noalloc(&mut self, trimmed: &mut ByteRecord) {
++        let length = self.len();
++        if length == 0 {
++            return;
++        }
++
++        trimmed.truncate(0);
++        trimmed.set_position(self.position().cloned());
++        for field in &*self {
++            trimmed.push_field(field.trim());
++        }
++    }
++
+     /// Add a new field to this record.
+     ///
+     /// # Example

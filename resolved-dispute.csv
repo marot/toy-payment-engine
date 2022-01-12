@@ -1,0 +1,5 @@
+type_,client,tx_id,amount
+deposit,0,1,100.0
+withdrawal,0,2,55.5
+dispute,0,1,0
+resolve,0,1,0

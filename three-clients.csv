@@ -1,0 +1,9 @@
+type_,client,tx_id,amount
+deposit,0,3,100.0
+deposit,1,2,99.0
+deposit,2,1,98.0
+withdrawal,0,4,1
+withdrawal,1,5,1
+withdrawal,2,6,1
+dispute,1,2,0
+dispute,2,1,0
